@@ -1,0 +1,90 @@
+============================================================
+🔍 REFACTORING QUALITY EVALUATION REPORT
+============================================================
+Generated: 2025-12-29 15:22:10
+Output file: refactoring_evaluation_report.txt
+
+📄 CODE STATISTICS
+------------------------------------------------------------
+Original code: 14 lines, 189 chars
+Refactored code: 14 lines, 393 chars
+
+✅ AST VALIDITY
+------------------------------------------------------------
+Status: VALID
+
+📈 CHANGE ANALYSIS
+------------------------------------------------------------
+Similarity Ratio: 0.337 (0.3-0.7 is ideal)
+Meaningful Changes: 10
+Changed Lines: 20/14
+Change Percentage: 142.9%
+
+🎨 STYLE ANALYSIS
+------------------------------------------------------------
+Score: 1.0/1.0 (5/5 improvements)
+Improvements: Better naming conventions, Function count preserved, More descriptive names, Line length within limits, Improved line length balance
+Avg Line Length: 16.0 → 34.5 (20-60 is ideal)
+Max Line Length: 20 → 47 (max 79 per PEP 8)
+Name Quality: 0.000 → 0.462
+Avg Name Length: 1.7 → 10.0
+
+🤖 CODEBLEU SCORE
+------------------------------------------------------------
+Score: 0.269
+Note: Low CodeBLEU score suggests significant code changes
+
+🔗 SEMANTIC PRESERVATION
+------------------------------------------------------------
+Score: 1.0/1.0
+Status: Function structure and logic preserved
+
+💯 OVERALL CONFIDENCE SCORE
+------------------------------------------------------------
+Score: 0.814/1.0
+Status: ✅ GOOD
+
+Component Scores:
+  - Ast Validity    ████████████████████ 1.000 (20%)
+  - Codebleu        █████░░░░░░░░░░░░░░░ 0.269 (20%)
+  - Style           ████████████████░░░░ 0.800 (20%)
+  - Change          ████████████████████ 1.000 (20%)
+  - Semantic        ████████████████████ 1.000 (20%)
+
+============================================================
+📋 FINAL VERDICT
+============================================================
+✅ Refactoring ACCEPTED - Good to excellent quality
+   The refactored code maintains functionality with improved readability.
+
+📝 RECOMMENDATIONS
+------------------------------------------------------------
+1. Improve variable/parameter names for better clarity
+
+============================================================
+🔍 COMPARISON SUMMARY
+============================================================
+
+Original → Refactored:
+  Functions: 4 → 4
+  Line length: 16.0 → 34.5
+  Name quality: 0.00 → 0.46
+  Meaningful changes: 10
+
+============================================================
+📝 CODE COMPARISON (EXCERPT)
+============================================================
+
+ORIGINAL (first 5 lines):
+   1: def add(a, b):
+   2:     return a + b
+   3: 
+   4: def sub(x, y):
+   5:     return x - y
+
+REFACTORED (first 5 lines):
+   1: def add_numbers(first_number, second_number):
+   2:     return first_number + second_number
+   3: 
+   4: def subtract_numbers(minuend, subtrahend):
+   5:     return minuend - subtrahend

@@ -1,0 +1,72 @@
+# input_code.py - Replace with your actual code
+
+def calculate_discount(price, customer_type, years, membership, coupon, seasonal, bulk, referral):
+    """
+    Calculate discount with too many parameters.
+    """
+    discount = 0
+    
+    # Member discount
+    if customer_type == "premium":
+        discount += 0.2
+    elif customer_type == "gold":
+        discount += 0.15
+    elif customer_type == "silver":
+        discount += 0.1
+    
+    # Years loyalty discount
+    if years > 5:
+        discount += 0.05
+    elif years > 3:
+        discount += 0.03
+    elif years > 1:
+        discount += 0.01
+    
+    # Membership level
+    if membership == "platinum":
+        discount += 0.1
+    elif membership == "gold":
+        discount += 0.05
+    
+    # Coupon code
+    if coupon == "SAVE20":
+        discount += 0.2
+    elif coupon == "SAVE10":
+        discount += 0.1
+    
+    # Seasonal discount
+    if seasonal:
+        discount += 0.15
+    
+    # Bulk purchase
+    if bulk > 10:
+        discount += 0.1
+    elif bulk > 5:
+        discount += 0.05
+    
+    # Referral discount
+    if referral:
+        discount += 0.05
+    
+    final_price = price * (1 - min(discount, 0.5))
+    
+    # Log the calculation
+    with open('discounts.log', 'a') as f:
+        f.write(f"Price: {price}, Discount: {discount}, Final: {final_price}\n")
+    
+    # Send notification
+    print(f"Discount applied: {discount*100}%")
+    
+    return final_price
+
+
+def process_order(items, customer):
+    """Process an order."""
+    total = 0
+    for item in items:
+        total += item['price'] * item.get('quantity', 1)
+    
+    if customer['premium']:
+        total *= 0.95
+    
+    return total

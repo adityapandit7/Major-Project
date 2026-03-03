@@ -1,0 +1,72 @@
+============================================================
+📊 CODE SMELL ANALYSIS REPORT
+============================================================
+
+📈 Summary: Found 5 code smell(s)
+📊 By severity:
+   • Critical: 2
+   • High: 1
+   • Medium: 2
+
+------------------------------------------------------------
+
+1. Complex Conditional (CRITICAL)
+   📍 Location: Function: calculate_discount (line 3)
+   📝 Issue: Method contains complex conditional logic (responsibility count > 5).
+   📊 Metrics:
+      • Lines of Code: 58
+      • Parameters: 8
+      • Responsibilities: 16
+      • Threshold: 5 (current: 16)
+      • Severity thresholds: Medium >5, High >10, Critical >15
+   🔧 Suggested Fix: Simplify complex conditionals by extracting them into well-named methods. Use guard clauses to reduce nesting. Consider polymorphism instead of multiple conditions.
+
+
+2. Multifaceted Abstraction (CRITICAL)
+   📍 Location: Function: calculate_discount (line 3)
+   📝 Issue: Function handles multiple unrelated responsibilities (> 1).
+   📊 Metrics:
+      • Lines of Code: 58
+      • Parameters: 8
+      • Responsibilities: 16
+      • Threshold: 1 (current: 16)
+      • Severity thresholds: Medium >1, High >3, Critical >5
+   🔧 Suggested Fix: Separate responsibilities into distinct functions following the Single Responsibility Principle. Each function should do one thing well.
+
+
+3. Long Method (HIGH)
+   📍 Location: Function: calculate_discount (line 3)
+   📝 Issue: Method is too long (> 30 lines) and may do too many things.
+   📊 Metrics:
+      • Lines of Code: 58
+      • Parameters: 8
+      • Responsibilities: 16
+      • Threshold: 30 (current: 58)
+      • Severity thresholds: Medium >30, High >50, Critical >70
+   🔧 Suggested Fix: Split the method into smaller helper methods using Extract Method. Each helper method should have a single responsibility. Aim for methods under 30 lines.
+
+
+4. Long Parameter List (MEDIUM)
+   📍 Location: Function: calculate_discount (line 3)
+   📝 Issue: Method has too many parameters (> 5), reducing readability.
+   📊 Metrics:
+      • Lines of Code: 58
+      • Parameters: 8
+      • Responsibilities: 16
+      • Threshold: 5 (current: 8)
+      • Severity thresholds: Medium >5, High >8, Critical >12
+   🔧 Suggested Fix: Reduce parameters by introducing parameter objects or grouping related parameters. Consider using a configuration object or builder pattern. Aim for less than 5 parameters.
+
+
+5. Multifaceted Abstraction (MEDIUM)
+   📍 Location: Function: process_order (line 63)
+   📝 Issue: Function handles multiple unrelated responsibilities (> 1).
+   📊 Metrics:
+      • Lines of Code: 10
+      • Parameters: 2
+      • Responsibilities: 3
+      • Threshold: 1 (current: 3)
+      • Severity thresholds: Medium >1, High >3, Critical >5
+   🔧 Suggested Fix: Separate responsibilities into distinct functions following the Single Responsibility Principle. Each function should do one thing well.
+
+============================================================

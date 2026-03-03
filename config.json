@@ -1,0 +1,12 @@
+{
+  "dacos_path": "C:\\Users\\Administrator\\Documents\\GitHub\\Major-Project\\prompt_engine\\dacos",
+  "model_type": "codet5p-770m",
+  "example_code": true,
+  "save_outputs": true,
+  "output_prefix": "prompts_output",
+  "thresholds": {
+    "long_method": 20,
+    "long_parameter": 4,
+    "complex_conditional": 5
+  }
+}

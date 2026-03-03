@@ -1,0 +1,23 @@
+📋 **REFACTORING PLAN**
+========================================
+
+**CRITICAL PRIORITY (Fix these first):**
+1. Multifaceted Abstraction in Function: calculate_discount (line 3)
+   → Separate responsibilities into distinct functions following the Single Responsibility Principle. Each function should do one thing well.
+2. Complex Conditional in Function: calculate_discount (line 3)
+   → Simplify complex conditionals by extracting them into well-named methods. Use guard clauses to reduce nesting. Consider polymorphism instead of multiple conditions.
+
+**HIGH PRIORITY:**
+3. Long Method in Function: calculate_discount (line 3)
+   → Split the method into smaller helper methods using Extract Method. Each helper method should have a single responsibility. Aim for methods under 30 lines.
+
+**MEDIUM PRIORITY:**
+4. Multifaceted Abstraction in Function: process_order (line 63)
+   → Separate responsibilities into distinct functions following the Single Responsibility Principle. Each function should do one thing well.
+5. Long Parameter List in Function: calculate_discount (line 3)
+   → Reduce parameters by introducing parameter objects or grouping related parameters. Consider using a configuration object or builder pattern. Aim for less than 5 parameters.
+
+**Refactoring Tips:**
+• Test after each change
+• Run tests to ensure functionality preserved
+• Commit changes incrementally

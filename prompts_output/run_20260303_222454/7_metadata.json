@@ -1,0 +1,29 @@
+{
+  "timestamp": "20260303_222454",
+  "function_count": 2,
+  "class_count": 0,
+  "smells_detected": 5,
+  "smell_summary": [
+    {
+      "name": "Complex Conditional",
+      "severity": "critical"
+    },
+    {
+      "name": "Multifaceted Abstraction",
+      "severity": "critical"
+    },
+    {
+      "name": "Long Method",
+      "severity": "high"
+    },
+    {
+      "name": "Long Parameter List",
+      "severity": "medium"
+    },
+    {
+      "name": "Multifaceted Abstraction",
+      "severity": "medium"
+    }
+  ],
+  "dacos_initialized": true
+}

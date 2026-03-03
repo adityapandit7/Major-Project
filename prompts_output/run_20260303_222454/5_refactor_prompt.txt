@@ -1,0 +1,193 @@
+
+You are a senior software engineer specializing in clean code and refactoring.
+
+TASK:
+Refactor the following Python code to improve its quality based on detected code smells.
+
+
+📊 **DACOS DATASET INSIGHTS**
+================================
+Based on analysis of real code from the DACOS dataset:
+
+• **Long Method**: Methods > 30 lines need refactoring
+  (Severe if > 50 lines)
+
+• **Long Parameter List**: Methods with > 5 parameters
+  (Severe if > 8 parameters)
+
+• **Complex Conditional**: Complexity score > 5
+
+
+🔍 **DETECTED CODE SMELLS**
+
+
+### Complex Conditional (CRITICAL Priority)
+
+**Issue:** Method contains complex conditional logic (responsibility count > 5).
+
+**Location:** Function: calculate_discount (line 3)
+
+**Current Metrics:**
+- Lines of Code: 58
+- Parameters: 8
+- Responsibilities: 16
+- Nesting Depth: 4
+
+**Threshold Information:**
+- Detection threshold: 5
+- Current value: 16
+
+**Recommended Refactoring:**
+Simplify complex conditionals by extracting them into well-named methods. Use guard clauses to reduce nesting. Consider polymorphism instead of multiple conditions.
+
+
+### Multifaceted Abstraction (CRITICAL Priority)
+
+**Issue:** Function handles multiple unrelated responsibilities (> 1).
+
+**Location:** Function: calculate_discount (line 3)
+
+**Current Metrics:**
+- Lines of Code: 58
+- Parameters: 8
+- Responsibilities: 16
+- Nesting Depth: 4
+
+**Threshold Information:**
+- Detection threshold: 1
+- Current value: 16
+
+**Recommended Refactoring:**
+Separate responsibilities into distinct functions following the Single Responsibility Principle. Each function should do one thing well.
+
+
+### Long Method (HIGH Priority)
+
+**Issue:** Method is too long (> 30 lines) and may do too many things.
+
+**Location:** Function: calculate_discount (line 3)
+
+**Current Metrics:**
+- Lines of Code: 58
+- Parameters: 8
+- Responsibilities: 16
+- Nesting Depth: 4
+
+**Threshold Information:**
+- Detection threshold: 30
+- Current value: 58
+
+**Recommended Refactoring:**
+Split the method into smaller helper methods using Extract Method. Each helper method should have a single responsibility. Aim for methods under 30 lines.
+
+
+### Long Parameter List (MEDIUM Priority)
+
+**Issue:** Method has too many parameters (> 5), reducing readability.
+
+**Location:** Function: calculate_discount (line 3)
+
+**Current Metrics:**
+- Lines of Code: 58
+- Parameters: 8
+- Responsibilities: 16
+- Nesting Depth: 4
+
+**Threshold Information:**
+- Detection threshold: 5
+- Current value: 8
+
+**Recommended Refactoring:**
+Reduce parameters by introducing parameter objects or grouping related parameters. Consider using a configuration object or builder pattern. Aim for less than 5 parameters.
+
+
+### Multifaceted Abstraction (MEDIUM Priority)
+
+**Issue:** Function handles multiple unrelated responsibilities (> 1).
+
+**Location:** Function: process_order (line 63)
+
+**Current Metrics:**
+- Lines of Code: 10
+- Parameters: 2
+- Responsibilities: 3
+- Nesting Depth: 2
+
+**Threshold Information:**
+- Detection threshold: 1
+- Current value: 3
+
+**Recommended Refactoring:**
+Separate responsibilities into distinct functions following the Single Responsibility Principle. Each function should do one thing well.
+
+
+CODE TO REFACTOR:
+# input_code.py - Replace with your actual code
+
+def calculate_discount(price, customer_type, years, membership, coupon, seasonal, bulk, referral):
+    """
+    Calculate discount with too many parameters.
+    """
+    discount = 0
+    # Member discount
+    if customer_type == "premium":
+        discount += 0.2
+    elif customer_type == "gold":
+        discount += 0.15
+    elif customer_type == "silver":
+        discount += 0.1
+    # Years loyalty discount
+    if years > 5:
+        discount += 0.05
+    elif years > 3:
+        discount += 0.03
+    elif years > 1:
+        discount += 0.01
+    # Membership level
+    if membership == "platinum":
+        discount += 0.1
+    elif membership == "gold":
+        discount += 0.05
+    # Coupon code
+    if coupon == "SAVE20":
+        discount += 0.2
+    elif coupon == "SAVE10":
+        discount += 0.1
+    # Seasonal discount
+    if seasonal:
+        discount += 0.15
+    # Bulk purchase
+    if bulk > 10:
+        discount += 0.1
+    elif bulk > 5:
+        discount += 0.05
+    # Referral discount
+    if referral:
+        discount += 0.05
+    final_price = price * (1 - min(discount, 0.5))
+    # Log the calculation
+    with open('discounts.log', 'a') as f:
+        f.write(f"Price: {price}, Discount: {discount}, Final: {final_price}\n")
+    # Send notification
+    print(f"Discount applied: {discount*100}%")
+    return final_price
+
+
+def process_order(items, customer):
+    """Process an order."""
+    total = 0
+    for item in items:
+        total += item['price'] * item.get('quantity', 1)
+    if customer['premium']:
+        total *= 0.95
+    return total
+
+REFACTORING REQUIREMENTS:
+- Preserve ALL original functionality
+- Do NOT change behavior
+- Follow clean code principles and PEP 8
+- Use descriptive names
+- Keep single responsibility
+- Add comments for complex logic
+
+Return ONLY the refactored code.

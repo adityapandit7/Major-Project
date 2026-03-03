@@ -1,0 +1,26 @@
+{
+  "language": "Python",
+  "functions": [
+    {
+      "name": "calculate_discount",
+      "loc": 58,
+      "param_count": 8,
+      "nesting_depth": 4,
+      "responsibility_count": 16,
+      "lineno": 3,
+      "end_lineno": 60
+    },
+    {
+      "name": "process_order",
+      "loc": 10,
+      "param_count": 2,
+      "nesting_depth": 2,
+      "responsibility_count": 3,
+      "lineno": 63,
+      "end_lineno": 72
+    }
+  ],
+  "classes": [],
+  "total_lines": 72,
+  "parse_success": true
+}
