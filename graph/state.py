@@ -87,6 +87,9 @@ class RepoState:
 
     evaluation_scores: Dict[str, float]
 
+    # ---- execution tracking ----
+    completed_tasks: List[str] = field(default_factory=list)
+
     # ---- state tracking ----
     version: int = 0
     state_hash: str = field(init=False)
@@ -111,6 +114,8 @@ class RepoState:
                 "refactor_results": self.refactor_results,
                 "documentation_results": self.documentation_results,
                 "evaluation_scores": self.evaluation_scores,
+
+                "completed_tasks": self.completed_tasks,
             })
         )
 
@@ -133,6 +138,8 @@ class RepoState:
             "refactor_results": self.refactor_results,
             "documentation_results": self.documentation_results,
             "evaluation_scores": self.evaluation_scores,
+
+            "completed_tasks": self.completed_tasks,
         }
 
         data.update(changes)
@@ -175,6 +182,8 @@ def create_repo_state(
         refactor_results=[],
         documentation_results=[],
         evaluation_scores={},
+
+        completed_tasks=[],
 
         version=0,
     )

@@ -8,11 +8,14 @@ from datetime import datetime
 
 from rag.document_builder import build_documents
 from orchestrator.planner_agent import PlannerAgent
+from orchestrator.supervisor import Supervisor
+from orchestrator.evaluator import Evaluator
+from orchestrator.replanner import Replanner
+from orchestrator.agent_loop import AgentLoop
 
 from core.embeddings import get_embedding_model
 from core.vector_store import build_vector_index
 from core.symbol_index import build_symbol_index
-from core.hybrid_retriever import hybrid_retrieve
 from core.retriever import create_retriever
 
 from parser.python_ast_parser import PythonASTParser
@@ -126,19 +129,25 @@ def save_all_outputs(prompts, report, plan, parsed_code, smells, output_prefix):
         encoding="utf-8"
     )
 
-    with open(output_dir / "2_parsed_analysis.json", "w",encoding="utf-8") as f:
+    with open(output_dir / "2_parsed_analysis.json", "w", encoding="utf-8") as f:
         parsed_copy = parsed_code.copy()
         parsed_copy.pop("original_code", None)
         json.dump(parsed_copy, f, indent=2, default=str)
 
-    (output_dir / "3_smell_report.txt").write_text(report,encoding="utf-8")
-    (output_dir / "4_refactoring_plan.txt").write_text(plan,encoding="utf-8")
+    (output_dir / "3_smell_report.txt").write_text(report, encoding="utf-8")
+    (output_dir / "4_refactoring_plan.txt").write_text(plan, encoding="utf-8")
 
     if prompts.get("refactor_prompt"):
-        (output_dir / "5_refactor_prompt.txt").write_text(prompts["refactor_prompt"],encoding="utf-8")
+        (output_dir / "5_refactor_prompt.txt").write_text(
+            prompts["refactor_prompt"],
+            encoding="utf-8"
+        )
 
     if prompts.get("documentation_prompt"):
-        (output_dir / "6_documentation_prompt.txt").write_text(prompts["documentation_prompt"],encoding="utf-8")
+        (output_dir / "6_documentation_prompt.txt").write_text(
+            prompts["documentation_prompt"],
+            encoding="utf-8"
+        )
 
     return str(output_dir)
 
@@ -152,7 +161,6 @@ def main():
     print("\n🚀 Starting Code Refactoring Analysis...")
 
     config = load_config()
-
     dacos_path = find_dacos_folder(config)
 
     source_code = read_input_code()
@@ -203,13 +211,31 @@ def main():
     retriever = create_retriever(vector_db)
 
     # =========================================================
-    # Initialize Planner (AFTER dependencies exist)
+    # Initialize Orchestrator Components
     # =========================================================
 
     planner = PlannerAgent(
-    engine=engine,
-    retriever=retriever,
-    symbol_index=symbol_index
+        engine=engine,
+        retriever=retriever,
+        symbol_index=symbol_index
+    )
+
+    supervisor = Supervisor(
+        engine=engine,
+        retriever=retriever,
+        symbol_index=symbol_index
+    )
+
+    evaluator = Evaluator(engine)
+
+    replanner = Replanner()
+
+    agent_loop = AgentLoop(
+        planner,
+        supervisor,
+        evaluator,
+        replanner,
+        engine
     )
 
     # =========================================================
@@ -217,28 +243,17 @@ def main():
     # =========================================================
 
     smells = detector.detect_smells(repo_state)
-
     report = detector.generate_report(repo_state)
 
     # =========================================================
-    # Planner
+    # Run Agent Loop
     # =========================================================
 
-    repo_state = planner.run(repo_state, smells)
-
-    print("\nDEBUG --- Planner Tasks")
-
-    for t in repo_state.tasks:
-        print(f"Task {t.id}: {t.type} → {t.target}")
+    repo_state, prompts = agent_loop.run(repo_state, smells)
 
     # =========================================================
-    # Prompt Generation
+    # Generate Final Plan
     # =========================================================
-
-    prompts = engine.generate_prompts(
-        repo_state=repo_state,
-        user_request="both"
-    )
 
     plan = engine.generate_refactoring_plan(parsed_code)
 

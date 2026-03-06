@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>DocAgent Code Analyzer</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+background:#0f172a;
+color:#e2e8f0;
+font-family:'Inter',sans-serif;
+margin:0;
+}
+
+header{
+background:#020617;
+padding:20px 40px;
+border-bottom:1px solid #1e293b;
+}
+
+header h1{
+margin:0;
+font-weight:600;
+}
+
+.container{
+display:flex;
+height:calc(100vh - 80px);
+}
+
+.sidebar{
+width:250px;
+background:#020617;
+border-right:1px solid #1e293b;
+padding:20px;
+}
+
+.sidebar h3{
+font-size:14px;
+color:#94a3b8;
+margin-top:20px;
+}
+
+.pipeline{
+margin-top:10px;
+}
+
+.pipeline div{
+padding:8px;
+background:#1e293b;
+margin-bottom:6px;
+border-radius:6px;
+font-size:13px;
+}
+
+.main{
+flex:1;
+display:flex;
+flex-direction:column;
+padding:20px;
+}
+
+.editor{
+flex:1;
+display:flex;
+flex-direction:column;
+}
+
+textarea{
+flex:1;
+background:#020617;
+border:1px solid #334155;
+color:white;
+padding:15px;
+border-radius:6px;
+font-family:monospace;
+font-size:14px;
+resize:none;
+}
+
+.run{
+margin-top:15px;
+padding:12px;
+background:#3b82f6;
+border:none;
+border-radius:6px;
+color:white;
+font-weight:600;
+cursor:pointer;
+transition:0.2s;
+}
+
+.run:hover{
+background:#2563eb;
+}
+
+.results{
+margin-top:20px;
+background:#020617;
+border:1px solid #334155;
+border-radius:6px;
+padding:15px;
+}
+
+.tabs{
+display:flex;
+gap:10px;
+margin-bottom:10px;
+}
+
+.tab{
+padding:6px 12px;
+background:#1e293b;
+border-radius:5px;
+font-size:13px;
+}
+
+.output{
+background:#020617;
+border:1px solid #1e293b;
+padding:15px;
+border-radius:5px;
+white-space:pre-wrap;
+font-family:monospace;
+font-size:13px;
+max-height:300px;
+overflow:auto;
+}
+
+footer{
+text-align:center;
+padding:10px;
+font-size:12px;
+color:#64748b;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>DocAgent Code Analyzer</h1>
+</header>
+
+<div class="container">
+
+<div class="sidebar">
+
+<h3>Agent Pipeline</h3>
+
+<div class="pipeline">
+<div>Parser</div>
+<div>Planner</div>
+<div>Supervisor</div>
+<div>Evaluator</div>
+<div>Replanner</div>
+<div>Prompt Engine</div>
+</div>
+
+<h3>Status</h3>
+<div class="pipeline">
+<div>System Ready</div>
+</div>
+
+</div>
+
+
+<div class="main">
+
+<form method="post" action="/run" class="editor">
+
+<textarea name="code" placeholder="Paste Python code here..."></textarea>
+
+<button class="run">Run Analysis</button>
+
+</form>
+
+
+{% if result %}
+
+<div class="results">
+
+<div class="tabs">
+<div class="tab">Smell Report</div>
+<div class="tab">Refactor Prompt</div>
+<div class="tab">Documentation Prompt</div>
+</div>
+
+<h3>Smell Report</h3>
+<div class="output">{{ result.smells }}</div>
+
+<h3>Refactor Prompt</h3>
+<div class="output">{{ result.refactor }}</div>
+
+<h3>Documentation Prompt</h3>
+<div class="output">{{ result.docs }}</div>
+
+</div>
+
+{% endif %}
+
+</div>
+
+</div>
+
+<footer>
+DocAgent Autonomous Refactoring System
+</footer>
+
+</body>
+</html>
