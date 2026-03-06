@@ -1,72 +1,57 @@
-# input_code.py - Replace with your actual code
-
-def calculate_discount(price, customer_type, years, membership, coupon, seasonal, bulk, referral):
+class Calculator:
     """
-    Calculate discount with too many parameters.
+    A simple calculator class.
     """
-    discount = 0
-    
-    # Member discount
-    if customer_type == "premium":
-        discount += 0.2
-    elif customer_type == "gold":
-        discount += 0.15
-    elif customer_type == "silver":
-        discount += 0.1
-    
-    # Years loyalty discount
-    if years > 5:
-        discount += 0.05
-    elif years > 3:
-        discount += 0.03
-    elif years > 1:
-        discount += 0.01
-    
-    # Membership level
-    if membership == "platinum":
-        discount += 0.1
-    elif membership == "gold":
-        discount += 0.05
-    
-    # Coupon code
-    if coupon == "SAVE20":
-        discount += 0.2
-    elif coupon == "SAVE10":
-        discount += 0.1
-    
-    # Seasonal discount
-    if seasonal:
-        discount += 0.15
-    
-    # Bulk purchase
-    if bulk > 10:
-        discount += 0.1
-    elif bulk > 5:
-        discount += 0.05
-    
-    # Referral discount
-    if referral:
-        discount += 0.05
-    
-    final_price = price * (1 - min(discount, 0.5))
-    
-    # Log the calculation
-    with open('discounts.log', 'a') as f:
-        f.write(f"Price: {price}, Discount: {discount}, Final: {final_price}\n")
-    
-    # Send notification
-    print(f"Discount applied: {discount*100}%")
-    
-    return final_price
+
+    def add(self, a, b):
+        """Add two numbers."""
+        return a + b
+
+    def multiply(self, a, b):
+        """Multiply two numbers."""
+        return a * b
 
 
-def process_order(items, customer):
-    """Process an order."""
+def compute_statistics(numbers):
+    """
+    Compute basic statistics for a list of numbers.
+    """
+
     total = 0
-    for item in items:
-        total += item['price'] * item.get('quantity', 1)
-    
-    if customer['premium']:
-        total *= 0.95
-    
-    return total
+    count = 0
+
+    for n in numbers:
+        total += n
+        count += 1
+
+    if count == 0:
+        return None
+
+    mean = total / count
+
+    # intentionally a bit long to trigger smell detection
+    variance_sum = 0
+    for n in numbers:
+        variance_sum += (n - mean) ** 2
+
+    variance = variance_sum / count
+
+    return {
+        "mean": mean,
+        "variance": variance
+    }
+
+
+def format_result(stats):
+    """
+    Format the statistics dictionary into a readable string.
+    """
+
+    if stats is None:
+        return "No data available."
+
+    result = "Statistics:\n"
+    result += f"Mean: {stats['mean']}\n"
+    result += f"Variance: {stats['variance']}"
+
+    return result
