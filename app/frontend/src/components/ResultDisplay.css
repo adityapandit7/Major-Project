@@ -1,0 +1,81 @@
+.result-display {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.result-summary,
+.result-stats,
+.result-preview {
+  margin: 20px 0;
+  padding: 15px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.result-stats ul {
+  list-style: none;
+  padding: 0;
+}
+
+.result-stats li {
+  margin: 5px 0;
+  color: #555;
+}
+
+.code-preview {
+  background-color: #2d2d2d;
+  color: #f8f8f2;
+  padding: 15px;
+  border-radius: 8px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 14px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.result-actions {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.download-button,
+.vscode-button {
+  padding: 10px 25px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.download-button {
+  background-color: #4caf50;
+  color: white;
+}
+
+.download-button:hover {
+  background-color: #45a049;
+}
+
+.vscode-button {
+  background-color: #0078d7;
+  color: white;
+}
+
+.vscode-button:hover {
+  background-color: #0062b1;
+}
+
+.file-hint {
+  color: #666;
+  font-style: italic;
+  font-size: 14px;
+  margin-top: 20px;
+}
